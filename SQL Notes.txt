@@ -1,0 +1,272 @@
+SQL Notes:
+
+create database: CREATE DATABASE db_name;
+use database: USE db_name;
+create table: CREATE TABLE tb_name(column_name data_type(size) [constraints]);
+describe table structure only: DESC tb_name;
+show all db:  SHOW DATABASES;
+show all tb in db: SHOW TABLES;
+
+DATA TYPES:
+INT: whole number, +/-
+DEC|NUMERIC|FIXED(size,p): decimal number.p is no.of digit after decimal and size is total number of digit.max size=65 default size=10, max p=30.ZEROFILL added zero upto p size.
+CHAR:character, hold fixed length string. max size is 255.
+VARCHAR: variable length string. more tan 255 then convert to TEXT.
+TEXT: large length string.
+DATE: yyyy-mm-dd
+DATETIME: yyyy-mm-dd hh:mm:ss
+TIMESTAMP: current Date and Time.
+
+insert record into tb: INSERT INTO tb_name(col1,col2,...,coln) VALUES (val1,val2,...,valn),(val1,val2,...,valn);
+
+fetch all data: SELECT * FROM tb_name;
+fetch specific column data: SELECT col_name from tb_name;
+select some number of records: SELECT * FROM tb_name LIMIT(start index,total num); LIMIT(1,3)= start from 1 index and total 3 record.
+
+Single Quote problem: use backlash(\) then single quote OR twice single quote('').
+
+WHERE clause: filter records conditionally.SELECT * FROM tb_name WHERE condition.
+
+IS NULL : select record with NULL value. NULL represent missing data.
+IS NOT NULL : select record with  no NULL value in column.
+BETWEEN : selet values within range.
+           Between 5 AND 10;   =>5,6,7,8,9,10. including both values
+           Beetween A AND F;    =>apple,bat dog,egg.  return letter start  with A to E and not with F.
+           Beetween yyyy/mm/dd AND yyyy/mm/dd;    =>including both dates
+
+
+LIKE: search specified pattern.
+%-zero or more characters.
+    %a : end with a.
+    a% : start with a.
+    %a% : contain a.
+_ -single character.
+   _e% : second char e.
+
+ORDER BY : Sort te record.
+ SELECT * FROM table_name ORDER BY colm_name ASC/DESC;
+ASC: ascending order (by default).
+DESC: descending order.
+
+By default table can hold NULL values.NOT NULL constraints enforces a field to always contain a value. 
+Unique Key:Unique constraints uniquely identifies each record in a table. There are many unique key per table.unique key can contain NULL value.NULL cannot be considered as duplicates.
+Primary Key:unique values,NOT NULL values,at most ONLY ONE . eg. stu_id int(2) PRIMARY KEY  or  PRIMARY KEY(stu_id);
+
+Auto Increment: id int(11) Auto_Increment;  automatically increase field value when new reourd inserted.Only one field is auto increment.Ignore null value.
+             start with 10:  alter table tb_name auto_increment=10;
+             Insert into tb_name values(NULL,'name');  use NULL if auto increment use without specifying column name.
+
+ALIAS:used to temporarily rename table or column. eg. select colm_name AS alias_name from tb_name. 
+      use double quote if alias name having two separate word. eg. select name AS "student name" from student;
+
+SELECT DISTINCT:select only distinct(unique) values. avoid duplicate values. eg.select distinct column_name from tb_name;
+
+ALTER: alter used to add/modify/change/drop existing structure of table.
+      ADD Column: Alter table tb_name ADD COLUMN col_name data_type(size) FIRST|LAST|AFTER col_name;
+      ADD Constraints: Alter table tb_name ADD COLUMN col_name data_type(size) CONSTRAINTS FIRST|LAST|AFTER col_name;  //Costraint= NOT NULL AUTO INCREMENT PRIMARY KEY
+      ADD Constraints to already present column:Alter table tb_name ADD CONSTRAINTS UNIQUE KEY(col_name);
+      CHANGE COLUMN: change column name & data type. syntax:Alter table tb_name CHANGE COLUMN old_col_name new_col_name data_type(size);
+      MODIFY COLUMN: modify size and data type. syntax:Alter table tb_name MODIFY COLUMN col_name data_type(size);
+      DROP COLUMN: delete column from tb. syntax:Alter table tb_name DROP COLUMN col_name;
+      DROP (CONSTRAINT): Alter table tb_name DROP INDEX col_name;
+
+      DROP TABLE/DATABASE: delete table/database  syntax: DROP TABLE/DATABASE tb_name;
+      TRUNCATE TABLE:delete data from tb not structure.  syntax: TRUNCATE TABLE tb_name;
+      
+      RENAME TABLE: RENAME TABLE old_name to new_name;
+      SHOW COLUMNS: SHOW COLUMNS from tb_name;   //show column list with all details.
+      SHOW CREATE TABLE/DATABASE: Show database/table create command.
+
+UPDATE: update existing record in a table.
+       UPDATE tb_name SET col1=val1,col2,val2... WHERE conditions; If WHERE is not used then all records are updated.
+
+UPDATE with CASE: condition for column updating values.
+       UPDATE tb_name SET updatedcol=
+        CASE WHEN col >= val THEN new_val..
+        ....ELSE 'value'
+        END
+   
+DELETE: delete records in a table.
+       DELETE * from tb_name WHERE cond;   (where is necessary else all records deleted)
+Copy table(same db): CREATE TABLE new_tb LIKE old_tb;  //use old_db.old_tb if database is different.
+                     INSERT new_tb SELECT * FROM old_tb;
+
+Functions: SELECT function(col_name) from tb_name;
+MIN|MAX:smallest|largest value of selected column.  
+SUM: Total sum of numeric column.
+AVG:Average of numeric column.
+SQRT:Square Root of numeric column.
+ROUND(col,p):Round numeric field to number of decimal specified.
+COUNT:return no.of values,distinct values in column and record in table(COUNT(*)).It didn't count NULL value.
+UPPER|LOWER:convert value of field to uppercase|lowercase. we can use UCASE|LCASE.
+MID or SUBSTRING(col,start,total):extract character from text field. 
+LENGTH:count the lendth of value in text field.It count space.
+CONCAT(col1,col2): join two columns.
+REVERSE:reverse order of letter in string.
+NOW():return current system date and time.
+
+GROUP BY: arrange identical data into groups.often used with aggregate function.
+SELECT column_name(s) FROM table_name WHERE condition GROUP BY column_name(s) ORDER BY column_name(s);
+
+HAVING CLAUSE : The HAVING clause was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+
+Relationships: established associations between two or more tables.
+one-to-one.  state-capital
+one-to-many.  person-account
+many-to-many. students-subjects
+
+Foreign Key:It is a field in one table, that refers to the PRIMARY KEY in another table.It's value can be a null.
+The table with the foreign key is called the child table, and the table with the primary key is called the parent table.
+FOREIGN KEY (colm) REFERENCES primary_tb(colm)   OR   colm_name data_type FOREIGN KEY REFERENCES Primary_tb_name(colm)
+Drop F_key: ALTER TABLE tb_name DROP FOREIGN KEY FK_column;
+ADD F_Key: ALTER TABLE child_tb ADD FOREIGN KEY (col) REFERENCES parent_tb(col);
+
+We cannot delete Parent table or it's record directly.We have to delete child table or it's record first.
+ON DELETE CASCADE:used to delete the rows from the child tb automatically, when the rows from the parent table are deleted.
+ON DELETE CASCADE  clause used at the end of the foreign key constraint definition.
+
+ON DELETE SET NULL: syntax same as above.used to set child data to NULL when parent data deleted.Child data is NOT deleted.
+ON DELETE RESTRICT|NO ACTION: clause prevents the deletion of a parent row.
+
+ON UPDATE CASCADE clause automatically updates matching records in a child table when rows in the parent table are updated.
+ON UPDATE SET NULL: used to set child data to NULL when parent data updated.
+ON UPDATE RESTRICT|NO ACTION: clause prevents the updation of a parent row.
+
+Joins:combine data from two or more tables.
+
+INNER JOIN: returns records that have matching values in both tables.
+        SELECT col(s) FROM tb1 INNER JOIN tb2 ON tb1.col=tb2.col;
+
+LEFT JOIN:returns all records from left table & matched record from right tables.
+RIGHT JOIN:returns all records from right table & matched record from left tables.
+FULL OUTER JOIN: returns all records when there is match in either left or right table.
+
+SELF JOIN: allows you to join a table to itself.It helps to query hierarchical data and compare rows within the same table.
+1)self join to query hierarchical data:
+ SELECT t1.c1,t2.c2 FROM tb t1 INNER JOIN tb t2 ON t2.c1 = t1.c2;   // t1 : table alias name 1;  c1 : column 1
+
+IFNULL: Return the specified value IF the expression is NULL, otherwise return the expression.
+IFNULL(expression, alt_value)
+
+
+2)compare rows within the same table:
+ SELECT t2.col,t2.col FROM tb t1 INNER JOIN tb t2 ON t1.col = t2.col and t1.col="";
+
+
+CROSS JOIN: Joined every row from the first table (T1) with every row from the second table (T2).It doesn't establish a relationship between the joined tables.
+SELECT column_name(s) FROM table1 CROSS JOIN table2;    (o/p group by table 2 rows)
+
+
+NATURAL JOIN: It provides the result based on the column with the same name and same data type present in tables to be joined.It is a type of Inner Join. 
+syntax: Select Column from T1 Natural Join T2;
+
+EQUI JOIN: operation between two or more tables based on the common column between them. It uses the equality ( = ) symbol to compare the data between two columns
+NON EQUI-JOIN: performs a JOIN using comparison operator other than equal(=) sign like >, <, >=, <= with conditions.
+
+UNION: used to combine the result-set of two or more SELECT statements.SELECT statement within UNION must have the same number of columns,similar data types,same order. It return  disitinct values.It avoid duplicate values.
+Syntax: select col from tb1 UNION select col from tb2;
+The UNION ALL operator allow duplicate values.
+INTERSECT: return common values.
+EXCEPT|MINUS:return only those value that are in first but not in second.remove common elements.
+
+ LIMIT : LIMIT [skip],[display]
+ TOP: TOP n   // shows top n records from db.
+ FIRST(col)|LAST(col): return first or last value from specified column. 
+
+Stored Procedure: It is  a group of sql statements stored in db which can be reused.You can also pass parameters to a stored procedure.We cannot rename it but can modify using ALTER keyword.
+Types:1) system stored procedure: predefined procedure. This procedure starts with the sp_ prefix.Example sp_help,sp_helpdb,sp_helptext.
+2)User-defined Stored Procedure: created by user.
+
+Syntax: CREATE PROCEDURE procedure_name
+        AS BEGIN
+        //sql_statement
+        END;
+
+Execute a Stored Procedure:  EXEC procedure_name;
+Drop Procedure: DROP PROCEDURE procedure_name;   
+
+Stored procedure with parameter: We can use multiple parameters.Parameter are separated by comma(,).
+          CREATE PROCEDURE SelectAllCustomers @City varchar(30)
+          AS BEGIN
+          SELECT * FROM Customers WHERE City = @City
+          END;
+
+          EXEC SelectAllCustomers 'Delhi';
+
+OUTPUT Parameter:The OUTPUT parameter is used when you want to return some value from the stored procedure.
+                 syntax: @para_name data_type OUTPUT 
+To call a stored procedure with output parameters:
+1) declare variables to hold the values returned by the output parameters.   DECLARE @count datatype;
+2) use these variables in the stored procedure call.  EXEC uspFindProductByModel 2018,@count OUTPUT;  
+   @count variable assigns the value of the output parameter.If you forget the OUTPUT keyword the @count variable will be NULL. 
+3) show the value of the declared variable.  SELECT @count AS 'Number of products found';
+
+
+Trigger:It is a special type of stored procedure that automatically run  when an event occurs.
+
+NVL => ISNULL
+NVL2 =>CASE
+
+MySQL Strinfg functions:
+UPPER | UCASE  :   convert string to upper case.
+LOWER | LCASE  :   convert string to lower case.
+TRIM : Remove leading and trailing spaces from a string.
+CHAR_LENGTH | CHARACTER_LENGTH :  return the length of a string(including blank space)
+CONCAT : adds two or more expressions together. CONCAT(ex1,ex2,...).If val null it return as it is null.
+CONCAT_WS :add more expressions together. CONCAT_WS(separator,ex1,ex2,...).NULL value will be skipped.
+LPAD : Left-pad the string with another string to a certain length.  LPAD(string, length, lpad_string)
+RPAD : right-pads a string with another string, to a certain length.
+LTRIM and RTRIM : removes leading and trailing spaces from a string.
+REVERSE : reverses a string.
+REPLACE :replaces all occurrences of a substring within a string, with a new substring. REPLACE(original, from_string, new_string)
+REPEAT(string, number): repeats a string as many times as specified.
+LEFT | RIGHT(string, number_of_chars): extracts a number of characters from a string(starting from left and right).
+LOCATE(substring, string, start): returns the position of the first occurrence of a substring in a string.case insensitive search.If substring not found then return 0.
+POSITION(substring IN string) : same as LOCATE.
+SUBSTRING(string, start, length)| SUBSTR(string, start, length) | MID(string, start, length(mandatory)) :extracts a substring from a string
+
+TRUNCATE(number, decimals): truncates a number to the specified number of decimal places.
+ROUND(number, decimals) : rounds a number to a specified number of decimal places. if 23.55 return 24
+
+Date Function:
+CURDATE() | CURRENT_DATE() : return current date in YYYY-MM-DD format.
+CURTIME() | CURRENT_TIME() : return current time in HH:MM:SS format.
+CURRENT_TIMESTAMP() : returns the current date and time."YYYY-MM-DD HH-MM-SS".
+DATEDIFF(date1,date2) : returns the number of days between two date values.
+SYSDATE() : returns the current date and time.
+
+CASE: It goes through conditions and return a value when the first condition is met.
+If no conditions are true, it will return the value in the ELSE clause.
+If there is no ELSE part and no conditions are true, it returns NULL.CASE is a statement.
+CASE works with other relational operators like (>, <,>=, <=) as well equality check (=).
+Syntax:
+CASE
+    WHEN condition1 THEN result1
+    WHEN conditionN THEN resultN
+    ELSE result
+END;
+ 
+COALESCE():Return the first non-null value in a list.
+CURRENT_USER():  returns the user name and host name for the MySQL account
+IFNULL(): Return the specified value IF the expression is NULL, otherwise return the expression.
+NULLIF(EXPR1,EXPR2):Compares two expressions and returns null if they are equal,returns the first expression if not equal.
+ISNULL(): If expression is NULL, this function returns 1. Otherwise, it returns 0.
+
+SQL Server uses SELECT TOP. MySQL uses LIMIT, and Oracle uses ROWNUM.
+
+NVL(EXPR1,EXPR2):
+If expression1 is not NULL, then expression1 is returned. If expression1 is NULL then expression2 is returned.
+
+NVL2(expression1, expression2, expression3)
+Expression1 is the one that will be evaluated. If it is not null, then expression2 is returned. If it is null then expression3 is returned.
+
+DECODE:
+Decode helps to perform IF-THEN-ELSE logic in the SQL query.DECODE is a function.DECODE works with equality check(=).
+DECODE(exp, val1,"result1",[val2,"result2"],....[valn,"resultn"],"default_result")new_column_name
+
+
+
+
+
+
+

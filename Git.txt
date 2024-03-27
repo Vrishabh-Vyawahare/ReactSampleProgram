@@ -1,0 +1,61 @@
+Git:Git is a popular version control system allows to track changes in code.
+GitHub: It is the largest host of source code that allows developer to store and manage their code using git.
+
+You can download Git for free from the following website: https://www.git-scm.com/
+
+git --version  => check git is installed or not.
+
+Configure Git:
+git config --global user.name "vrishabh vyawahare"
+git config --global user.email "vrishabh22vyawahare@gmail.com"
+
+mkdir-makes a new directory.
+cd-changes the current working directory.
+ls-list the files in the current directory.
+ls-a : list the all files (include hidden files).
+
+clone: cloning a repository on  your local machine.
+       git clone <url>
+
+status:check status of the code.check whethere changes is commited on github or not.
+       It will return one of four stages for each file:
+       Unmodified: unchanged since the last commit.
+       Modified: changed
+       Staged: The file is ready to be commited.
+       Untracked: The file is not being tracked by Git.
+
+Add:add new or changed files in your working directory to the git staging area. 
+     git add <- filename ->  
+     git add .       // add all changed files. OR git add --all OR  git add -A
+
+
+commit: It is a record of change.But record will not display on remote repository.
+        git commit -m "msg"
+        git log:To view the history of commits for a repository
+
+push:upload local repo content to remote repo.
+      git push origin main   OR   git push -u origin main  
+
+init:initialize Git on current folder.Initialized empty Git repository in /Users/user/myproject/.git/
+      git init 
+
+Git help --all : See All Possible Commands.shift+G end of list.SHIFT + G to jump the end of the list, then q to exit the view.
+git command -help :  See all the available options for the specific command.
+
+Adding a remote repository:
+To add a new remote use the git remote add command.It takes two arguments remote name and remote url.
+git remote add origin <url>
+git remote-v  //to verify remote
+
+
+branch:Branches allow you to work on different parts of a project without impacting the main branch.
+       When the work is complete, a branch can be merged with the main project. 
+
+	git branch: to check branch
+	git branch-m main : to rename branch
+	git checkout <branch_name>  (to navigate)
+	git checkout -b <new_branch_name>  (to create new branch)
+	git checkout -d <branch_name>    (to delete branch)
+
+
+

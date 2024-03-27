@@ -1,0 +1,103 @@
+JS Interview:
+1.Java vs JavaScript:
+Java: 
+1)compiled lang.java code => machine code(using compiler). run on any device where JVM installed.
+2)statically typed language means variables must be declared with a specific data type.
+3)mainly used for backend development.
+
+JavaScript: 
+1)interpreted lang.executed on web browser without compilation using google v8 engine.
+2)dynamically typed language. don’t need to declare the variable data types; they are determined at runtime.
+3)mainly used for frontend development but can use for backend with node js env.
+
+2.Javascript:  
+JavaScript is a popular web scripting language and is used for client-side and server-side development.
+JavaScript is interpreted programming language that is used to make web pages interactive.
+
+An interpreted language is a programming language that translates source code into bytecode, which is then executed by an interpreter, 
+rather than being compiled into machine code.
+
+3.Let, const and var difference:
+let having block scope and can be updated but cannot be redeclared.
+var having functional scope and can be updated and redeclared.
+const cannot be redeclared and updated.
+
+4.scope:determine the accessibility of variables and function.
+Global Scope: It is used to access the variables and functions from anywhere inside the code. 
+Function scope:It is used to access the variables and functions inside the function itself and not outside. 
+Block Scope:inside curly braces. example for loop.
+
+5.Hoisting: 
+Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope .
+JavaScript Initializations are Not Hoisted.(var x=7;).applicable for var and NOT for let,const.
+
+6.strict mode:
+The "use strict" directive was new in ECMAScript version 5.
+The purpose of "use strict" is to indicate that the code should be executed in "strict mode".
+strict mode preventing you from using undeclared variables,Deleting a variable and functions is not allowed.
+Strict mode makes it easier to write "secure" JavaScript.
+If the object is not specified, functions in strict mode will return undefined and functions in normal mode will return the global object (window).
+
+7.null vs undefined:
+undefined: declared but unassigned.The data type of undefined is also undefined.
+null: declared and assigned with null value.The data type of null is object.
+
+8.slice vs splice in array:
+The slice() method can be used to create a copy of an array or return a portion of an array. It does not alter the original array.
+slice(start,end) //end exclusive
+splice() method will change the contents of the original array. It used to add or remove elements of an existing array and the return value will be the removed items from the array.
+splice(index,delete_count,add_item)
+
+9.callback:
+Callback function is a function that is passed as an argument to another function and is intended to be executed after the completion of a specific task or at a given time.
+setTimeout(()=>{},1000)
+
+10.Callback Hell:
+a situation where multiple nested callbacks are used within asynchronous functions then code becomes difficult to read and understand, leading to"callback hell".Design of the code seems just like a pyramid. Thus the Callback hell is also referred to as the ‘Pyramid of Doom’.
+
+11.Promises:
+promises is an JavaScript object .It solution to callback hell and are now considered as the effective method to handle asynchronous operations. It represents the result of an asynchronous operation, the result may be resolved or rejected. 
+stages:pending,fulfilled,rejected.
+
+12.Promise chaining: 
+The process of executing a sequence of asynchronous tasks one after another using promises is known as Promise chaining.It involves chaining multiple .then() methods.
+
+13.async/await:
+async/await is a modern approach to handling asynchronous code.It effectively avoiding the “Callback Hell” and "promise chaining".
+In JavaScript, the async keyword is used to define an asynchronous function, which returns a Promise.
+Within an async function, the await keyword is used to pause the execution of the function until a Promise is resolved.
+
+Symbol:
+In JavaScript, a Symbol is a primitive data type introduced in ECMAScript 6 (ES6) that represents a unique and immutable value.
+It is often used as an identifier for object properties to avoid name collisions
+
+Object.freeze(obj_name):
+method freezes an object i.e. it prevents the object from being modified.
+
+setTimeout vs setInterval:
+                    setTimeout                                    setInterval
+    execute a function after sepecified time.                execute a function repeatedly after sepecified time.
+    run only once.                                           run repeatedly.
+    clearTimeout() is used to clear the setTimeout.	     clearInterval() is used to clear setInterval.
+    setTimeout(function,Time in ms)                          setInterval(function,Time in ms)
+
+shallow copy vs deep copy :
+shallow copy: a copy where the original and the copied object  having same references.
+              modifications made in copied obj affect original obj.
+              Array.concat(), Array.from(), Object.assign(), etc creates a shallow copy.
+
+deep copy: a copy where the original and the copied object  having different references.
+             modifications made in copied obj does not affect original obj.
+            Spread(...) operator, creates a deep copy when there is no nesting.
+            JSON.parse() and JSON.stringify() creates a deep copy when there is nested objects/arrays.
+
+Local storage vs session storage vs cookies:
+local storage: data is stored even browser is closed.No expiration time.username and pwd.
+session storage: data is lost once browser is closed.expiration time.payment mode
+cookies:how to remember the information about the user.send data from client to user.track user.save history of user search.
+
+Call: change the context of invoking function./replace value of this. We can pass n number of arguments.
+Apply: change the context of invoking function./replace value of this. We can pass n number of arguments but in ARRAY.
+Bind: return copy of function that can we store in variable and we can use it.
+
+
