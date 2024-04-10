@@ -1,0 +1,79 @@
+Mongo vs mongod:
+Mongo is command line shell that connect with specific instance of Mongod. It issue the command.
+Mongod process the command. It is host process for the db.
+
+MongoDB : MongoDB is a non-relational/non-tabular database.MongoDB is a NoSQL database that stores large volumes of data in the form of documents.
+MongoDB Atlas: a cloud database platform used to host MongoDB db.
+
+The MongoDB Query API is the way you will interact with your data.
+The MongoDB Query API can be used two ways:
+CRUD Operations
+Aggregation Pipelines
+
+show dbs: To see all available databases.
+use:change or create a new database
+db: show current database.
+db.dropDatabase();
+
+There are 2 ways to create a collection.
+1. db.createCollection("posts");     
+2. db.collection_name.insertOne(object)
+
+show collection: It shows collection list in db
+db.collection_name.drop()  :  delete collection from databases.
+
+Insert Documents:
+1. insertOne() : To insert a single document.If collection is not exist then it automatically created.
+  db.collection_name.insertOne({
+  title: "Post Title 1",
+  likes: 1,
+  tags: ["news", "events"],
+
+})
+
+2. insertMany() : To in.sert multiple documents at once.This method inserts an array of objects into the database.
+
+
+Find Data :
+
+1. find() :   
+   To select data from a collection.This method accepts a object. If left empty, all documents will be returned.
+   db.collection_name.find()
+ 
+2. findOne()
+   To select only one document, we can use the findOne() method.
+   This method accepts a query object. If left empty, it will return the first document it finds.
+
+Querying Data
+To query, or filter, data we can include a query in our find() or findOne() methods.
+db.collection_name.find( {category: "News"} )
+
+Update Document:
+To update an existing document we can use the updateOne() or updateMany() methods.
+The first parameter is a query object to define which document or documents should be updated.
+The second parameter is an object defining the updated data.
+To do this, we need to use the $set operator.
+db.posts.updateOne( { title: "Post Title 1" }, { $set: { likes: 2 } } ) 
+
+Insert if not found:
+If you would like to insert the document if it is not found, you can use the upsert option.
+{ upsert: true }
+
+Delete Documents:
+We can delete documents by using the methods deleteOne() or deleteMany().
+
+1.deleteOne()
+The deleteOne() method will delete the first document that matches the query provided.
+db.posts.deleteOne({ title: "Post Title 5" })
+
+2.deleteMany()
+The deleteMany() method will delete all documents that match the query provided.
+
+MongoDB Update Operators:
+Fields
+The following operators can be used to update fields:
+
+$currentDate: Sets the field value to the current date
+$inc: Increments the field value
+$rename: Renames the field
+$set: Sets the value of a field
