@@ -28,8 +28,8 @@ Function scope:It is used to access the variables and functions inside the funct
 Block Scope:inside curly braces. example for loop.
 
 5.Hoisting: 
-Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope .
-JavaScript Initializations are Not Hoisted.(var x=7;).applicable for var and NOT for let,const.
+Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope OR  function or a variable can be used before declaration.
+JavaScript Initializations are Not Hoisted.(var x=7;).var is hoisted and let and const does not allow hoisting.function expression are not hoisted.
 
 6.strict mode:
 The "use strict" directive was new in ECMAScript version 5.
@@ -96,8 +96,39 @@ local storage: data is stored even browser is closed.No expiration time.username
 session storage: data is lost once browser is closed.expiration time.payment mode
 cookies:how to remember the information about the user.send data from client to user.track user.save history of user search.
 
+call vs apply vs bind:
 Call: change the context of invoking function./replace value of this. We can pass n number of arguments.
 Apply: change the context of invoking function./replace value of this. We can pass n number of arguments but in ARRAY.
 Bind: return copy of function that can we store in variable and we can use it.
+
+
+forEach() vs map() vs filter() vs reduce():
+
+Method                                           Description                                                                   Returns
+
+map()       Creates a new array with the results of calling a provided function on every element in the calling array.         A new array
+
+forEach()                    Executes a provided function once for each array element.                                         undefined
+
+filter()           Creates a new array with all elements that pass the test implemented by the provided function.              A new array
+
+reduce()   Executes a reducer function (that you provide) on each member of the array resulting in a single output value.     A single value
+
+
+for...of - Works with strings and arrays but not with objects.give access to the values in the array.
+for...in - Use to loop over objects. give access to the index in the array.
+
+constructor function:
+In JavaScript, a constructor function is used to create objects.To create an object from a constructor function, we use the new keyword.
+The constructor function is useful if you want to create multiple objects.Object Literal is generally used to create a single object.
+
+Prototype:
+In JavaScript, every function and object has a property named prototype by default.
+In JavaScript, a prototype can be used to add properties and methods to a constructor function. And objects inherit properties and methods from a prototype.
+
+closure function :
+A closure in JavaScript is a function that has access to the variables and parameters of its outer function,even after the outer function has returned.
+
+
 
 
